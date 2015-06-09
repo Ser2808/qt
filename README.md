@@ -1,4 +1,4 @@
 #client1/server1 - simple TCP client/server:
- -server - 1 client connection;
- -client - send file bytes with interval,ms;
+ -server: supports 1 client connection;
+ -client: sends bytes from file with interval,ms;
 
