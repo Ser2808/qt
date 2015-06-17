@@ -76,6 +76,9 @@
       </item>
       <item>
        <widget class="QLineEdit" name="lineEditInterval">
+        <property name="toolTip">
+         <string>0=press send for each byte</string>
+        </property>
         <property name="text">
          <string>1000</string>
         </property>
@@ -85,6 +88,9 @@
        <widget class="QPushButton" name="pushButton_Send">
         <property name="enabled">
          <bool>false</bool>
+        </property>
+        <property name="toolTip">
+         <string>Send bytes</string>
         </property>
         <property name="text">
          <string>Send</string>

@@ -21,7 +21,8 @@ void ClientThread::run()
     if (!tcpSocket)
     {
         tcpSocket = new QTcpSocket();
-        if (!tcpSocket->setSocketDescriptor(socketDescriptor)) {
+        if (!tcpSocket->setSocketDescriptor(socketDescriptor))
+        {
             emit error(tcpSocket->error());
             delete tcpSocket;
             return;
@@ -33,17 +34,20 @@ void ClientThread::run()
     qint64 dataSize;
     if (!file->seek(*posInFile))
         return;
-    while (!file->atEnd()) {
+    while (!file->atEnd())
+    {
         dataSize = file->read(bufRead, bufReadSize);
         for (int i0 = 0; i0 < dataSize; i0++)
         {
             bufSend[0] = bufRead[i0];
-            tcpSocket->write(bufSend);
+            tcpSocket->write(bufSend, 1);   // write exact 1 byte
             tcpSocket->flush();
             *posInFile = *posInFile + 1;
             if (*stopThread)
                 return;
             emit updateStatusBar(QString("%1").arg(*posInFile));
+            if (interval == 0) // need to press Send for each byte
+                return;
             QDateTime dt = QDateTime::currentDateTime().addMSecs(interval);
             while (dt > QDateTime::currentDateTime())
             {
